@@ -59,11 +59,12 @@ p{
   box-shadow:0 2px 4px rgba(0,0,0,.1);
 }
 .navbar a{
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: .75rem 1rem;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.75rem 1rem;
   font-weight:500;
+  color:var(--text);
 }
 
 .navbar a:last-child{margin-right:0;}
@@ -151,11 +152,4 @@ a:focus-visible{
 .visually-hidden{
   position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(100%);white-space:nor
 w;border:0;
-}
-
-.navbar {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: .75rem 1rem;
 }
