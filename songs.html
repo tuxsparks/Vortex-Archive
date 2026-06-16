@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css">   <!-- keep if you have an external file -->
 <link rel="icon" type="image/x-icon" href="favicon.png">
 <title>Vortex OST's</title>
 
@@ -33,9 +33,7 @@
   .controls button:hover{background:#1565c0;}
   .controls button:disabled{opacity:.5;cursor:not-allowed;}
 
-  .progress{
-    width:100%;margin-top:.8rem;
-  }
+  /* The progress bar CSS is no longer needed – you can delete it if you wish */
 </style>
 </head>
 
@@ -47,53 +45,28 @@
 
 
 <script>
-
 const USER = "tuxsparks";
 const REPO = "Vortex-Archive";
 
 const baseURL = `https://raw.githubusercontent.com/${USER}/${REPO}/Music/`;
 
 const songs = [
-  {
-    title:"A New Start",
-    artist:"Vortex Original Sound Track",
-    url: baseURL + "A%20New%20Start%20-%20Vortex%20Original%20Sound%20Track%20%5BOST%5D%20audio%20143%20kbps%20original.mp3"
-  },
-  {
-    title:"Banlands",
-    artist:"Vortex Original Sound Track",
-    url: baseURL + "Banlands%20-%20Vortex%20Original%20Sound%20Track%20%5BOST%5D%20audio%20130%20kbps%20original.mp3"
-  },
-  {
-    title:"Freezerator",
-    artist:"Vortex Original Sound Track",
-    url: baseURL + "Freezerator%20-%20Vortex%20Original%20Sound%20Track%20%5BOST%5D%20audio%20144%20kbps%20english%20%28original%29.mp3"
-  },
-  {
-    title:"Looking Spectacular",
-    artist:"Vortex Original Sound Track",
-    url: baseURL + "Looking%20Spectacular%20-%20Vortex%20Original%20Sound%20Track%20%5BOST%5D%20audio%20151%20kbps%20english%20%28original%29.mp3"
-  },
-  {
-    title:"Seven Seas",
-    artist:"Vortex Original Sound Track",
-    url: baseURL + "Seven%20Seas%20-%20Vortex%20Original%20Sound%20Track%20%5BOST%5D%20audio%20142%20kbps%20english%20%28original%29.mp3"
-  },
-  {
-    title:"Temp",
-    artist:"Vortex Original Sound Track",
-    url: baseURL + "Temp%20-%20Vortex%20Original%20Sound%20Track%20%5BOST%5D%20audio%20129%20kbps%20original.mp3"
-  },
-  {
-    title:"Vorbits",
-    artist:"Vortex Original Sound Track",
-    url: baseURL + "Vorbits%20-%20Vortex%20Original%20Sound%20Track%20%5BOST%5D%20audio%20129%20kbps%20original.mp3"
-  },
-  {
-    title:"Voxel",
-    artist:"Vortex Original Sound Track",
-    url: baseURL + "Voxel%20-%20Vortex%20Original%20Sound%20Track%20%5BOST%5D%20audio%20140%20kbps%20english%20%28original%29.mp3"
-  }
+  { title:"A New Start", artist:"Vortex Original Sound Track",
+    url: baseURL + "A%20New%20Start%20-%20Vortex%20Original%20Sound%20Track%20%5BOST%5D%20audio%20143%20kbps%20original.mp3" },
+  { title:"Banlands", artist:"Vortex Original Sound Track",
+    url: baseURL + "Banlands%20-%20Vortex%20Original%20Sound%20Track%20%5BOST%5D%20audio%20130%20kbps%20original.mp3" },
+  { title:"Freezerator", artist:"Vortex Original Sound Track",
+    url: baseURL + "Freezerator%20-%20Vortex%20Original%20Sound%20Track%20%5BOST%5D%20audio%20144%20kbps%20english%20%28original%29.mp3" },
+  { title:"Looking Spectacular", artist:"Vortex Original Sound Track",
+    url: baseURL + "Looking%20Spectacular%20-%20Vortex%20Original%20Sound%20Track%20%5BOST%5D%20audio%20151%20kbps%20english%20%28original%29.mp3" },
+  { title:"Seven Seas", artist:"Vortex Original Sound Track",
+    url: baseURL + "Seven%20Seas%20-%20Vortex%20Original%20Sound%20Track%20%5BOST%5D%20audio%20142%20kbps%20english%20%28original%29.mp3" },
+  { title:"Temp", artist:"Vortex Original Sound Track",
+    url: baseURL + "Temp%20-%20Vortex%20Original%20Sound%20Track%20%5BOST%5D%20audio%20129%20kbps%20original.mp3" },
+  { title:"Vorbits", artist:"Vortex Original Sound Track",
+    url: baseURL + "Vorbits%20-%20Vortex%20Original%20Sound%20Track%20%5BOST%5D%20audio%20129%20kbps%20original.mp3" },
+  { title:"Voxel", artist:"Vortex Original Sound Track",
+    url: baseURL + "Voxel%20-%20Vortex%20Original%20Sound%20Track%20%5BOST%5D%20audio%20140%20kbps%20english%20%28original%29.mp3" }
 ];
 
 const listEl = document.getElementById('song-list');
@@ -125,7 +98,6 @@ songs.forEach((s, i) => {
   playBtn.onclick = () => togglePlay(i);
   controls.appendChild(playBtn);
 
-
   const viewLink = document.createElement('a');
   viewLink.href = s.url;
   viewLink.textContent = 'Download';
@@ -139,13 +111,15 @@ songs.forEach((s, i) => {
 
   songDiv.appendChild(controls);
 
-
+  /* ---- INSERT THE CARD INTO THE PAGE ---- */
+  listEl.appendChild(songDiv);
 });
 
 function togglePlay(idx) {
   const audio = document.getElementById(`audio-${idx}`);
   if (!audio) return;
 
+  // Pause any other playing track
   songs.forEach((_, i) => {
     if (i !== idx) {
       const a = document.getElementById(`audio-${i}`);
@@ -153,17 +127,11 @@ function togglePlay(idx) {
     }
   });
 
-  if (audio.paused) {
-    audio.play();
-  } else {
-    audio.pause();
-  }
+  // Toggle current track
+  audio.paused ? audio.play() : audio.pause();
 }
 
-function toggleMute(idx) {
-  const audio = document.getElementById(`audio-${idx}`);
-  if (!audio) return;
-  audio.muted = !audio.muted;
-}
-
-
+/* The mute helper is no longer needed – it’s removed */
+</script>
+</body>
+</html>
